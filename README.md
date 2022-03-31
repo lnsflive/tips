@@ -13,4 +13,4 @@ Visit official app at: [Tip Calculator](https://jaimegonzalezjr.com/Projects/tip
 * CSS
 * Javascript
 
-![Screenshot](https://github.com/lnsflive/tips/tree/master/src/ss1.png)
+![Screenshot](https://github.com/lnsflive/tips/blob/master/src/ss1.png)

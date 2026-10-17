@@ -1,47 +1,50 @@
-let tip_percent = 0.0;
-let tip_input = 0.00;
-let tip_amount = 0.00;
-let total_amount = 0.0;
+let tipPercent = 0;
+let billAmount = 0;
 
 $( document ).ready(function() {
-    
-    $(".billInput").on('change',function(){
-        tip_input = $(this).val();
-        //console.log('input: ' + tip_input);
+    $(".billInput").on("input", function() {
+        billAmount = $(this).val();
         checkResult();
     });
-    $(".custom").on('change',function(){
-        tip_percent = $(this).val() * 0.01;
-        //console.log('percent: ' + tip_percent);
+
+    $(".custom").on("input", function() {
+        tipPercent = $(this).val() * 0.01;
         checkResult();
     });
 });
 
-function changePercent(myPercent){
-    tip_percent = myPercent;
-    //console.log('percent: ' + tip_percent);
+function calculateAmounts(bill, percent) {
+    const billCents = Math.round(Number(bill) * 100);
+    const tipCents = Math.round(billCents * Number(percent));
+
+    return {
+        tip: tipCents / 100,
+        total: (billCents + tipCents) / 100
+    };
+}
+
+function changePercent(percent) {
+    tipPercent = percent;
+    $(".custom").val("");
     checkResult();
 }
 
-function reset(){
+function reset() {
     $(".billInput").val("");
     $(".custom").val("");
     $(".result").html("$0.00");
     $(".totalResult").html("$0.00");
-    tip_percent = 0.0;
-    tip_input = 0.00;
-    tip_amount = 0.00;
-    total_amount = 0.0;
+    tipPercent = 0;
+    billAmount = 0;
 }
 
-function checkResult(){
-    tip_amount = tip_input * tip_percent;
-    total_amount = Number(tip_input) + Number(tip_amount);
-    tip_amount = (tip_amount.toFixed(2));
-    total_amount = total_amount.toFixed(2);
-    //console.log('amount: ' + tip_amount);
-    //console.log('amount: ' + total_amount);
-    $(".result").html("$" + tip_amount);
-    $(".totalResult").html("$" + total_amount);
+function checkResult() {
+    const amounts = calculateAmounts(billAmount, tipPercent);
 
+    $(".result").html("$" + amounts.tip.toFixed(2));
+    $(".totalResult").html("$" + amounts.total.toFixed(2));
+}
+
+if (typeof module !== "undefined") {
+    module.exports = { calculateAmounts };
 }

@@ -1,0 +1,7 @@
+{
+  "name": "tip-calculator",
+  "private": true,
+  "scripts": {
+    "test": "node --test"
+  }
+}

@@ -20,13 +20,15 @@
     margin:0;
     padding:0;
     color: black;
+    box-sizing: border-box;
 }
 html{
     background-color: #313333;
 }
 .container{
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    min-height: 100vh;
+    padding: 16px 0;
     display: grid;
     place-items: center;
 }
@@ -46,8 +48,7 @@ html{
 
 .content{
     background-color: white;
-    width: 340px;
-    height: 678px;
+    width: min(390px, calc(100% - 24px));
     border-radius: 15px;
     padding:20px;
     border: 5px solid #c5e4e9;
@@ -56,20 +57,22 @@ html{
     margin-top:20px;
 }
 .buttons{
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    margin: 10px 0;
 }
 button{
     font-family: space_monobold;
-    width: 160px;
     height: 50px;
-    margin:10px;
     background-color: #01484c;
     border: none;
     color: white;
     font-size: 25px;
     border-radius: 10px;
+}
+.tip-button{
+    width: 100%;
 }
 button:hover{
     background-color: #27c3ae;
@@ -78,7 +81,7 @@ button:hover{
 
 input[type=number]{
     font-family: space_monobold;
-    width: 340px;
+    width: 100%;
     height: 50px;
     background-color: #f4f7fc;
     border: none;
@@ -90,7 +93,7 @@ input[type=number]{
 }
 .logo{
     font-family: space_monobold;
-    width: 340px;
+    width: 100%;
     height: 70px;
     background-color: #c5e4e9;
     border-radius: 30px;
@@ -127,8 +130,7 @@ input[type=number]{
 
 .results{
     font-family: space_monobold;
-    width: 300px;
-    height: 155px;
+    width: 100%;
     background-color: #01484c;
     border-radius: 20px;
     padding:20px;
@@ -138,6 +140,7 @@ input[type=number]{
     background-color: #27c3ae;
     color:#01484c;
     width: 100%;
+    margin-top: 20px;
 }
 .reset:hover{
     background-color:white;
@@ -152,7 +155,14 @@ input[type=number]{
     text-align: right;
 }
 
-.results{
+.visually-hidden{
     position: absolute;
-    bottom: 30px;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
 }

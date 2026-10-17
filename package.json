@@ -2,6 +2,7 @@
   "name": "tip-calculator",
   "private": true,
   "scripts": {
-    "test": "node --test"
+    "test": "node --test test/*.test.js",
+    "test:browser": "node test/browser.cjs"
   }
 }

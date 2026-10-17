@@ -9,7 +9,7 @@ const projectRoot = path.resolve(__dirname, "..");
 function loadBrowserScript() {
     const values = new Map();
     const handlers = new Map();
-    const document = {};
+    const document = { querySelectorAll: () => [] };
 
     function $(selector) {
         if (selector === document) {
@@ -54,17 +54,4 @@ test("a preset tip clears a stale custom percentage", () => {
     context.changePercent(0.10);
 
     assert.equal(values.get(".custom"), "");
-});
-
-test("results are a sibling of the closed options container", () => {
-    const html = fs.readFileSync(path.join(projectRoot, "index.html"), "utf8");
-
-    assert.match(html, /<\/div>\s*<\/div>\s*<div class="results">/);
-});
-
-test("the card width stays within the viewport", () => {
-    const css = fs.readFileSync(path.join(projectRoot, "src/style.css"), "utf8");
-
-    assert.match(css, /width:\s*min\(390px, calc\(100% - 24px\)\)/);
-    assert.match(css, /box-sizing:\s*border-box/);
 });

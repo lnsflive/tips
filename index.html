@@ -1,65 +1,57 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Tip Calculator</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="src/style.css">
-    </head>
-    <body>
-        <!--[if lt IE 7]>
-            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
-        <![endif]-->
-        <div class="container">
-            <div class="content">
-                <div class="logo">Tip Calculator</div>
-                    <div class="bill">
-                        <label for="billAmount">Bill</label>
-                        <div class="input">
-                            <input id="billAmount" type="number" min="0" step="0.01" inputmode="decimal" placeholder="0.00" class="billInput">
-                            <span class="money">$</span>
-                        </div>
+<head>
+    <meta charset="utf-8">
+    <title>Tip Calculator</title>
+    <meta name="description" content="A little less math at the table. Calculate your tip and total in a moment.">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#edf4f1">
+    <link rel="stylesheet" href="src/style.css">
+    <script src="src/jquery-3.6.0.slim.min.js" defer></script>
+    <script src="src/script.js" defer></script>
+</head>
+<body>
+    <main class="container">
+        <header class="page-header">
+            <div class="brand"><span class="brand-mark" aria-hidden="true">%</span> TIP CALCULATOR</div>
+            <h1>A little less math.<br>A little more thanks.</h1>
+            <p>Set your bill, choose a tip, and you're all set.</p>
+        </header>
+        <div class="calculator">
+            <section class="controls" aria-label="Calculate your tip">
+                <div class="section-heading"><span class="step" aria-hidden="true">01</span><h2>The bill</h2></div>
+                <label for="billAmount">Bill amount</label>
+                <div class="input bill-field">
+                    <span class="input-symbol" aria-hidden="true">$</span>
+                    <input id="billAmount" type="number" min="0" step="0.01" inputmode="decimal" placeholder="0.00" class="billInput" aria-describedby="inputError">
+                </div>
+                <fieldset class="options">
+                    <legend><span class="step" aria-hidden="true">02</span>Leave a tip</legend>
+                    <p class="field-hint">Choose a percentage or enter your own.</p>
+                    <div class="buttons">
+                        <button type="button" class="tip-button" data-percent="0.05" aria-pressed="false" onclick="changePercent(0.05)">5%</button>
+                        <button type="button" class="tip-button" data-percent="0.1" aria-pressed="false" onclick="changePercent(0.1)">10%</button>
+                        <button type="button" class="tip-button" data-percent="0.15" aria-pressed="false" onclick="changePercent(0.15)">15%</button>
+                        <button type="button" class="tip-button" data-percent="0.2" aria-pressed="false" onclick="changePercent(0.2)">20%</button>
                     </div>
-                    <div class="options">
-                        <span>Select Tip %</span>
-                        <div class="buttons">
-                            <button type="button" class="tip-button" onclick="changePercent(0.05)">5%</button>
-                            <button type="button" class="tip-button" onclick="changePercent(0.1)">10%</button>
-                            <button type="button" class="tip-button" onclick="changePercent(0.15)">15%</button>
-                            <button type="button" class="tip-button" onclick="changePercent(0.2)">20%</button>
-                        </div>
-                        <div class="input">
-                            <label class="visually-hidden" for="customPercent">Custom tip percentage</label>
-                            <input id="customPercent" type="number" min="0" step="0.01" inputmode="decimal" placeholder="Custom" class="custom">
-                            <span class="money">%</span>
-                        </div>
+                    <label for="customPercent">Custom percentage</label>
+                    <div class="input custom-field">
+                        <input id="customPercent" type="number" min="0" step="0.01" inputmode="decimal" placeholder="Your choice" class="custom" aria-describedby="inputError">
+                        <span class="input-symbol" aria-hidden="true">%</span>
                     </div>
-                    <div class="results">
-                        <div class="row">
-                            <div class="column tip_amount">
-                                Tip Amount
-                            </div>
-                            <div class="column result">$0.00</div>
-                        </div>
-                        <div class="row">
-                            <div class="column tip_amount">
-                                Total
-                            </div>
-                            <div class="column totalResult">$0.00</div>
-                        </div>
-                        <div class="row">
-                            <button type="button" class="reset" onclick="reset()">RESET</button>
-                        </div>
-                    </div>
-            </div>
+                </fieldset>
+                <p id="inputError" class="input-error" role="status"></p>
+            </section>
+            <section class="results" aria-labelledby="summaryHeading">
+                <div class="summary-heading"><h2 id="summaryHeading">The breakdown</h2></div>
+                <div class="receipt" aria-live="polite" aria-atomic="true">
+                    <div class="receipt-row"><span>Bill amount</span><span class="billResult">$0.00</span></div>
+                    <div class="receipt-row"><span>Tip <span class="tip-rate">(0%)</span></span><span class="result">$0.00</span></div>
+                    <div class="receipt-total"><span>Total to pay</span><strong class="totalResult">$0.00</strong><span class="total-caption">Bill + tip</span></div>
+                </div>
+                <button type="button" class="reset" onclick="reset()"><span aria-hidden="true">↺</span> Start over</button>
+            </section>
         </div>
-        <script src="src/jquery-3.6.0.slim.min.js"></script>
-        <script src="src/script.js" async defer></script>
-    </body>
+    </main>
+</body>
 </html>
